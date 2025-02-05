@@ -34,14 +34,16 @@
             <th>Lastname: </th>
             <th>Email: </th>
             <th>Phone: </th>
+            <th></th>
+            <th></th>
         </tr>
         <tr th:each="p : ${persons}">
             <td th:text="${p.name}"></td>
             <td th:text="${p.lastname}"></td>
             <td th:text="${p.email}"></td>
             <td th:text="${p.number}"></td>
-            <td><a th:href="@{/edit/} + ${p.id}" th:text="Edit"/></td>
-            <td><a th:href="@{/delete(id=${p.id})}" th:text="Delete"/></td>
+            <td><a type="button" class="btn btn-outline-primary" th:href="@{/edit/} + ${p.id}" th:text="Edit"/></td>
+            <td><a type="button" class="btn btn-outline-danger" th:href="@{/delete(id=${p.id})}" th:text="Delete"/></td>
         </tr>
     </table>
 </div>
