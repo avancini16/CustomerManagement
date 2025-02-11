@@ -19,6 +19,11 @@ public class Controller {
     @Autowired
     private PersonService personService;
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping("/")
     public String start(Model model){
         var persons = personService.listPersons();
