@@ -19,7 +19,7 @@ public class SecurityConfig {
         UserDetails admin = User.withDefaultPasswordEncoder()
                 .username("admin")
                 .password("admin")
-                .roles("ADMIN", "USER")
+                .roles("ADMIN")
                 .build();
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("user")
@@ -34,11 +34,19 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/edit/**", "/add/**", "/delete/**").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")  // Página personalizada
+                        .loginPage("/login")
                         .permitAll()
+                )
+                .logout((logout) -> logout.
+                        logoutSuccessUrl("/logout").permitAll()
+                )
+                .exceptionHandling(exh -> exh
+                        .accessDeniedPage("/errores/403")
                 );
 
         return http.build();

@@ -24,6 +24,11 @@ public class Controller {
         return "login";
     }
 
+    @PostMapping("/logout")
+    public String performLogout() {
+        return "login";
+    }
+
     @GetMapping("/")
     public String start(Model model){
         var persons = personService.listPersons();
